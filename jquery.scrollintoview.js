@@ -20,7 +20,11 @@
 
 	var settings = {
 		duration: "fast",
-		direction: "both"
+		direction: "both",
+		extraScroll: {
+			x: 0,
+			y: 0
+		}
 	};
 
 	var rootrx = /^(?:html)$/i;
@@ -114,11 +118,11 @@
 				{
 					if (rel.top < 0)
 					{
-						animOptions.scrollTop = dim.s.scroll.top + rel.top;
+						animOptions.scrollTop = dim.s.scroll.top + rel.top - (options.extraScroll.y || 0);
 					}
 					else if (rel.top > 0 && rel.bottom < 0)
 					{
-						animOptions.scrollTop = dim.s.scroll.top + Math.min(rel.top, -rel.bottom);
+						animOptions.scrollTop = dim.s.scroll.top + Math.min(rel.top, -rel.bottom) + (options.extraScroll.y || 0);
 					}
 				}
 
@@ -127,11 +131,11 @@
 				{
 					if (rel.left < 0)
 					{
-						animOptions.scrollLeft = dim.s.scroll.left + rel.left;
+						animOptions.scrollLeft = dim.s.scroll.left + rel.left - (options.extraScroll.x || 0);
 					}
 					else if (rel.left > 0 && rel.right < 0)
 					{
-						animOptions.scrollLeft = dim.s.scroll.left + Math.min(rel.left, -rel.right);
+						animOptions.scrollLeft = dim.s.scroll.left + Math.min(rel.left, -rel.right) + (options.extraScroll.x || 0);
 					}
 				}
 
